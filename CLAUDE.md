@@ -77,6 +77,10 @@ Guide them through setting up each service:
 6. **Blotato** (optional - social media publishing):
    - Sign up at https://blotato.com
 
+7. **Dashboard Password** (required):
+   - Ask the user to choose a password they'll use to log into their dashboard
+   - This protects the studio from unauthorized access
+
 Help them create `.env.local` from the example:
 ```bash
 cp .env.local.example .env.local
