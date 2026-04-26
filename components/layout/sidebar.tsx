@@ -38,23 +38,30 @@ export function Sidebar() {
 
   return (
     <>
-      <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-card border border-border"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </button>
+      {/* ── Mobile top bar ─────────────────────────────────────── */}
+      <header className="md:hidden fixed top-0 inset-x-0 z-50 h-14 flex items-center px-4 bg-card border-b border-border">
+        <button
+          className="p-2 rounded-md hover:bg-accent transition-colors mr-3"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+        <span className="text-base font-semibold truncate">Content Studio</span>
+      </header>
 
+      {/* ── Mobile overlay backdrop ────────────────────────────── */}
       {open && (
         <div
-          className="md:hidden fixed inset-0 bg-black/50 z-30"
+          className="md:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         />
       )}
 
+      {/* ── Sidebar ───────────────────────────────────────────── */}
       <aside
         className={cn(
-          "fixed md:static inset-y-0 left-0 z-40 w-64 border-r border-border bg-card flex flex-col transition-transform duration-200",
+          "fixed md:static inset-y-0 left-0 z-50 w-64 border-r border-border bg-card flex flex-col transition-transform duration-200",
           open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
@@ -63,7 +70,7 @@ export function Sidebar() {
           <p className="text-sm text-muted-foreground">YouTube Dashboard</p>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const isActive =
               item.href === "/"
