@@ -430,7 +430,7 @@ export default function VideoCreationPage() {
             <label className="text-sm font-medium shrink-0">Project:</label>
             {projects.length > 0 ? (
               <select
-                className="flex-1 bg-transparent border border-border rounded-md px-3 py-2 text-sm"
+                className="flex-1 bg-background text-foreground border border-border rounded-md px-3 py-2 text-sm"
                 value={activeProject?.id || ""}
                 onChange={(e) => {
                   if (e.target.value === "") {
@@ -446,9 +446,9 @@ export default function VideoCreationPage() {
                   }
                 }}
               >
-                <option value="">+ New Project</option>
+                <option value="" className="bg-background text-foreground">+ New Project</option>
                 {projects.map((p) => (
-                  <option key={p.id} value={p.id}>
+                  <option key={p.id} value={p.id} className="bg-background text-foreground">
                     {p.topic} ({p.status})
                   </option>
                 ))}
@@ -543,15 +543,15 @@ export default function VideoCreationPage() {
                             Content Pillar
                           </label>
                           <select
-                            className="w-full bg-transparent border border-border rounded-md px-3 py-2 text-sm"
+                            className="w-full bg-background text-foreground border border-border rounded-md px-3 py-2 text-sm"
                             value={newPillar}
                             onChange={(e) =>
                               setNewPillar(e.target.value as ContentPillar)
                             }
                           >
-                            <option value="">Auto-detect</option>
+                            <option value="" className="bg-background text-foreground">Auto-detect</option>
                             {PILLARS.map((p) => (
-                              <option key={p.value} value={p.value}>
+                              <option key={p.value} value={p.value} className="bg-background text-foreground">
                                 {p.label}
                               </option>
                             ))}
