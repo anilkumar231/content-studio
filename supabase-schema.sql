@@ -113,6 +113,50 @@ create table if not exists video_projects (
   updated_at timestamptz default now()
 );
 
+-- ============================================================
+-- PIPELINE TRACKING TABLES (used by anilytix pipeline)
+-- ============================================================
+
+-- Pipeline execution runs
+create table if not exists pipeline_runs (
+  id uuid primary key default gen_random_uuid(),
+  topic text,
+  status text not null default 'started',
+  test_mode boolean default false,
+  title text,
+  video_id text,
+  video_path text,
+  thumbnail_path text,
+  duration_seconds int,
+  cost_usd numeric(10,4) default 0,
+  started_at timestamptz default now(),
+  completed_at timestamptz,
+  created_at timestamptz default now()
+);
+
+-- Pipeline step logs (real-time tracking)
+create table if not exists pipeline_logs (
+  id uuid primary key default gen_random_uuid(),
+  run_id uuid references pipeline_runs(id) on delete cascade,
+  step text not null,
+  message text not null,
+  level text default 'info',
+  timestamp timestamptz default now()
+);
+
+-- Thumbnail tracking
+create table if not exists thumbnails (
+  id uuid primary key default gen_random_uuid(),
+  run_id uuid references pipeline_runs(id) on delete cascade,
+  file_path text not null,
+  title text,
+  created_at timestamptz default now()
+);
+
+-- ============================================================
+-- ROW LEVEL SECURITY
+-- ============================================================
+
 -- Enable Row Level Security (allow all for now, tighten later)
 alter table scripts enable row level security;
 alter table calendar_items enable row level security;
@@ -122,6 +166,9 @@ alter table competitor_snapshots enable row level security;
 alter table news_items enable row level security;
 alter table analytics_snapshots enable row level security;
 alter table video_projects enable row level security;
+alter table pipeline_runs enable row level security;
+alter table pipeline_logs enable row level security;
+alter table thumbnails enable row level security;
 
 -- Permissive policies (dashboard is password-gated, not multi-user)
 create policy "Allow all on scripts" on scripts for all using (true) with check (true);
@@ -132,3 +179,10 @@ create policy "Allow all on competitor_snapshots" on competitor_snapshots for al
 create policy "Allow all on news_items" on news_items for all using (true) with check (true);
 create policy "Allow all on analytics_snapshots" on analytics_snapshots for all using (true) with check (true);
 create policy "Allow all on video_projects" on video_projects for all using (true) with check (true);
+create policy "Allow all on pipeline_runs" on pipeline_runs for all using (true) with check (true);
+create policy "Allow all on pipeline_logs" on pipeline_logs for all using (true) with check (true);
+create policy "Allow all on thumbnails" on thumbnails for all using (true) with check (true);
+
+-- Indexes for fast queries
+create index if not exists idx_pipeline_logs_run_id on pipeline_logs(run_id);
+create index if not exists idx_pipeline_runs_status on pipeline_runs(status);
