@@ -2,67 +2,74 @@
 // CONTENT STUDIO CONFIGURATION
 // ============================================================
 // Edit this file to personalize your Content Studio.
-// Claude Code will guide you through this during setup.
 // ============================================================
 
 export const studio = {
   // --- Creator Identity ---
   creator: {
-    name: "Your Name",
-    channelName: "Your Channel",
-    handle: "@your-handle",
-    subscriberCount: "0",
-    niche: "your niche",
-    nicheDescription: "what you teach or create content about",
+    name: "Anil Kumar",
+    channelName: "Anilytix",
+    handle: "@Anilytix",
+    subscriberCount: "Growing",
+    niche: "AI & Technology",
+    nicheDescription: "AI tools, tips, and automation in Hinglish for Indian audience",
   },
 
   // --- Brand Voice ---
   voice: {
-    tone: "enthusiastic but grounded",
+    tone: "enthusiastic but grounded, Hinglish mix",
     rules: [
       "Direct, action-oriented",
-      "First-person, conversational",
+      "First-person, conversational Hinglish",
       "Short paragraphs with line breaks",
+      "Mix Hindi and English naturally — like how educated Indians talk",
+      "Tech terms stay in English (AI, prompt, tool, feature, API)",
       "No AI-sounding phrases like 'game-changer', 'revolutionary', 'let's dive in'",
     ],
   },
 
   // --- Links (shown in video descriptions, CTAs, etc.) ---
   links: {
-    primary: "",
-    primaryLabel: "",
-    secondary: "",
-    secondaryLabel: "",
+    primary: "https://youtube.com/@Anilytix",
+    primaryLabel: "Subscribe on YouTube",
+    secondary: "https://instagram.com/anilytix",
+    secondaryLabel: "Follow on Instagram",
   },
 
   // --- Video Description Template ---
   publishTemplate: {
-    // This block goes at the TOP of every YouTube video description.
-    // Leave empty if you don't want header links.
-    descriptionHeader: "",
-    // CTA for pinned comment under each video.
-    pinnedCommentCTA: "",
+    descriptionHeader: `━━━━━━━━━━━━━━━━━━━━━━━━━━
+Anilytix - AI Samjho. Life Badlo.
+Har din ek nayi AI trick, bilkul simple Hinglish mein.
+━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    pinnedCommentCTA:
+      "Agar aapko yeh video helpful lagi toh LIKE karo aur SUBSCRIBE karo! Comment mein batao aapne kya seekha 👇",
   },
 
   // --- Carousel Slide Branding ---
   carousel: {
-    brandName: "Your Brand",
-    creatorFullName: "Your Name",
-    handle: "@your-handle",
+    brandName: "Anilytix",
+    creatorFullName: "Anil Kumar",
+    handle: "@Anilytix",
     accentColor: "#4F6AFF",
     headshot: "/assets/headshot.png",
   },
 
   // --- Peer Channels to Track ---
-  // Add YouTube channels you want to benchmark against.
-  // Example: { name: "Creator Name", handle: "@creator", url: "https://www.youtube.com/@creator" }
-  // Add isOwn: true for your own channel.
-  peers: [] as { name: string; handle: string; url: string; isOwn?: boolean }[],
+  peers: [
+    {
+      name: "Anilytix",
+      handle: "@Anilytix",
+      url: "https://www.youtube.com/@Anilytix",
+      isOwn: true,
+    },
+  ] as { name: string; handle: string; url: string; isOwn?: boolean }[],
 
   // --- AI News Analysis ---
   newsAnalysis: {
-    audienceDescription: "your target audience",
-    focusTopics: ["AI", "automation", "business"],
+    audienceDescription:
+      "Indian students, professionals, and small business owners (18-40) curious about using AI in daily life",
+    focusTopics: ["AI", "automation", "Gemini", "ChatGPT", "productivity", "India"],
   },
 };
 

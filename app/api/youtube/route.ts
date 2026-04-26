@@ -4,6 +4,48 @@ const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
 const YOUTUBE_API_BASE = "https://www.googleapis.com/youtube/v3";
 
+async function resolveChannelId(
+  apiKey: string,
+  channelIdOrHandle: string
+): Promise<string | null> {
+  // If it already looks like a channel ID (starts with UC), return as-is
+  if (channelIdOrHandle.startsWith("UC")) {
+    return channelIdOrHandle;
+  }
+
+  // If it's a handle like @Anilytix, look it up
+  const handle = channelIdOrHandle.startsWith("@")
+    ? channelIdOrHandle
+    : `@${channelIdOrHandle}`;
+
+  try {
+    const res = await fetch(
+      `${YOUTUBE_API_BASE}/channels?part=id&forHandle=${encodeURIComponent(handle)}&key=${apiKey}`
+    );
+    const data = await res.json();
+    if (data.items?.[0]?.id) {
+      return data.items[0].id;
+    }
+  } catch {
+    // ignore
+  }
+
+  // Fallback: try as forUsername
+  try {
+    const res = await fetch(
+      `${YOUTUBE_API_BASE}/channels?part=id&forUsername=${encodeURIComponent(channelIdOrHandle.replace("@", ""))}&key=${apiKey}`
+    );
+    const data = await res.json();
+    if (data.items?.[0]?.id) {
+      return data.items[0].id;
+    }
+  } catch {
+    // ignore
+  }
+
+  return null;
+}
+
 export async function GET() {
   if (!YOUTUBE_API_KEY || !YOUTUBE_CHANNEL_ID) {
     return Response.json(
@@ -18,14 +60,32 @@ export async function GET() {
   }
 
   try {
+    // Resolve handle to channel ID if needed
+    const resolvedChannelId = await resolveChannelId(YOUTUBE_API_KEY, YOUTUBE_CHANNEL_ID);
+    if (!resolvedChannelId) {
+      return Response.json(
+        { error: `Could not resolve channel: ${YOUTUBE_CHANNEL_ID}. Make sure YOUTUBE_API_KEY is a Data API key (starts with AIzaSy...), not an OAuth client ID.` },
+        { status: 404 }
+      );
+    }
+
     // Fetch channel statistics
     const channelRes = await fetch(
-      `${YOUTUBE_API_BASE}/channels?part=statistics&id=${YOUTUBE_CHANNEL_ID}&key=${YOUTUBE_API_KEY}`
+      `${YOUTUBE_API_BASE}/channels?part=statistics&id=${resolvedChannelId}&key=${YOUTUBE_API_KEY}`
     );
     const channelData = await channelRes.json();
 
+    if (channelData.error) {
+      console.error("YouTube API error:", channelData.error);
+      const stale = await getStaleCached<{ channel: unknown; videos: unknown[] }>("youtube-own");
+      if (stale) return Response.json(stale);
+      return Response.json(
+        { error: `YouTube API error: ${channelData.error.message}. Check that YOUTUBE_API_KEY is a Data API key.` },
+        { status: channelData.error.code || 500 }
+      );
+    }
+
     if (!channelData.items?.[0]) {
-      // API might have returned an error (quota etc) - try stale cache
       const stale = await getStaleCached<{ channel: unknown; videos: unknown[] }>("youtube-own");
       if (stale) return Response.json(stale);
       return Response.json({ error: "Channel not found" }, { status: 404 });
@@ -40,7 +100,7 @@ export async function GET() {
 
     // Fetch recent videos
     const searchRes = await fetch(
-      `${YOUTUBE_API_BASE}/search?part=snippet&channelId=${YOUTUBE_CHANNEL_ID}&order=date&maxResults=10&type=video&key=${YOUTUBE_API_KEY}`
+      `${YOUTUBE_API_BASE}/search?part=snippet&channelId=${resolvedChannelId}&order=date&maxResults=10&type=video&key=${YOUTUBE_API_KEY}`
     );
     const searchData = await searchRes.json();
 
