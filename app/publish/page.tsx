@@ -450,7 +450,7 @@ export default function PublishPage() {
                           Account:
                         </label>
                         <select
-                          className="bg-transparent border border-border rounded-md px-2 py-1 text-sm"
+                          className="bg-background text-foreground border border-border rounded-md px-2 py-1 text-sm"
                           value={post.accountId || ""}
                           onChange={(e) =>
                             updatePostAccount(index, e.target.value)

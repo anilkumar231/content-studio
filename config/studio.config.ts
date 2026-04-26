@@ -63,6 +63,26 @@ Har din ek nayi AI trick, bilkul simple Hinglish mein.
       url: "https://www.youtube.com/@Anilytix",
       isOwn: true,
     },
+    {
+      name: "Technical Guruji",
+      handle: "@TechnicalGuruji",
+      url: "https://www.youtube.com/@TechnicalGuruji",
+    },
+    {
+      name: "Gaurav Thakkar",
+      handle: "@GauravThakkarChannel",
+      url: "https://www.youtube.com/@GauravThakkarChannel",
+    },
+    {
+      name: "AI Wallah",
+      handle: "@AIWallah",
+      url: "https://www.youtube.com/@AIWallah",
+    },
+    {
+      name: "College Wallah",
+      handle: "@CollegeWallah",
+      url: "https://www.youtube.com/@CollegeWallah",
+    },
   ] as { name: string; handle: string; url: string; isOwn?: boolean }[],
 
   // --- AI News Analysis ---

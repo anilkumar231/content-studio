@@ -214,7 +214,7 @@ export default function ScriptsPage() {
                     </TableCell>
                     <TableCell>
                       <select
-                        className="bg-transparent border border-border rounded px-2 py-1 text-xs"
+                        className="bg-background text-foreground border border-border rounded px-2 py-1 text-xs"
                         value={script.status}
                         onChange={(e) => updateStatus(script.id, e.target.value)}
                       >

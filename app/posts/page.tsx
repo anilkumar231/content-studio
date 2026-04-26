@@ -124,7 +124,7 @@ export default function PostsPage() {
               <div>
                 <label className="text-sm font-medium">Platform</label>
                 <select
-                  className="w-full bg-transparent border border-border rounded-md px-3 py-2 text-sm"
+                  className="w-full bg-background text-foreground border border-border rounded-md px-3 py-2 text-sm"
                   value={newPlatform}
                   onChange={(e) =>
                     setNewPlatform(e.target.value as Platform)
@@ -230,7 +230,7 @@ export default function PostsPage() {
                     </TableCell>
                     <TableCell>
                       <select
-                        className="bg-transparent border border-border rounded px-2 py-1 text-xs"
+                        className="bg-background text-foreground border border-border rounded px-2 py-1 text-xs"
                         value={post.status}
                         onChange={(e) =>
                           updateStatus(

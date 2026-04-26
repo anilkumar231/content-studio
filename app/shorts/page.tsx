@@ -430,7 +430,7 @@ export default function ShortsPage() {
                       <div className="flex items-center gap-2">
                         <input
                           type="datetime-local"
-                          className="bg-transparent border border-border rounded-md px-2 py-1 text-xs"
+                          className="bg-background text-foreground border border-border rounded-md px-2 py-1 text-xs"
                           value={clip.scheduledTime || ""}
                           onChange={(e) =>
                             updateClip(clip.id, {

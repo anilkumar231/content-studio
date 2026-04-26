@@ -764,7 +764,7 @@ export default function RepurposePage() {
                       </label>
                       {accs.length > 0 ? (
                         <select
-                          className="bg-transparent border border-border rounded-md px-2 py-1 text-xs"
+                          className="bg-background text-foreground border border-border rounded-md px-2 py-1 text-xs"
                           value={selectedAccounts[platform] || ""}
                           onChange={(e) =>
                             setSelectedAccounts((prev) => ({
@@ -789,7 +789,7 @@ export default function RepurposePage() {
                     <div className="flex items-center gap-2">
                       <input
                         type="datetime-local"
-                        className="bg-transparent border border-border rounded-md px-2 py-1 text-xs"
+                        className="bg-background text-foreground border border-border rounded-md px-2 py-1 text-xs"
                         value={scheduledTimes[platform] || ""}
                         onChange={(e) =>
                           setScheduledTimes((prev) => ({

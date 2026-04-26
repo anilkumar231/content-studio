@@ -158,14 +158,14 @@ export default function CalendarPage() {
                 <div>
                   <label className="text-sm font-medium">Platform</label>
                   <select
-                    className="w-full bg-transparent border border-border rounded-md px-3 py-2 text-sm"
+                    className="w-full bg-background text-foreground border border-border rounded-md px-3 py-2 text-sm"
                     value={newPlatform}
                     onChange={(e) =>
                       setNewPlatform(e.target.value as Platform)
                     }
                   >
                     {PLATFORMS.map((p) => (
-                      <option key={p} value={p}>
+                      <option key={p} value={p} className="bg-background text-foreground">
                         {p}
                       </option>
                     ))}
@@ -174,14 +174,14 @@ export default function CalendarPage() {
                 <div>
                   <label className="text-sm font-medium">Status</label>
                   <select
-                    className="w-full bg-transparent border border-border rounded-md px-3 py-2 text-sm"
+                    className="w-full bg-background text-foreground border border-border rounded-md px-3 py-2 text-sm"
                     value={newStatus}
                     onChange={(e) =>
                       setNewStatus(e.target.value as ContentStatus)
                     }
                   >
                     {STATUSES.map((s) => (
-                      <option key={s} value={s}>
+                      <option key={s} value={s} className="bg-background text-foreground">
                         {s}
                       </option>
                     ))}
@@ -341,14 +341,14 @@ export default function CalendarPage() {
                     </span>
                   </div>
                   <select
-                    className="bg-transparent border border-border rounded px-2 py-1 text-xs"
+                    className="bg-background text-foreground border border-border rounded px-2 py-1 text-xs"
                     value={item.status}
                     onChange={(e) =>
                       updateStatus(item.id, e.target.value as ContentStatus)
                     }
                   >
                     {STATUSES.map((s) => (
-                      <option key={s} value={s}>
+                      <option key={s} value={s} className="bg-background text-foreground">
                         {s}
                       </option>
                     ))}
