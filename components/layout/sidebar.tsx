@@ -15,6 +15,7 @@ import {
   ImageIcon,
   Menu,
   X,
+  Settings,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -30,6 +31,7 @@ const navItems = [
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/peers", label: "Peers", icon: Users },
   { href: "/news", label: "AI News", icon: Newspaper },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function Sidebar() {

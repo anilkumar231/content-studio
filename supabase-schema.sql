@@ -114,6 +114,26 @@ create table if not exists video_projects (
 );
 
 -- ============================================================
+-- PROVIDER SETTINGS (optional premium API keys)
+-- ============================================================
+
+create table if not exists provider_settings (
+  id uuid primary key default gen_random_uuid(),
+  provider text not null unique,   -- 'higgsfield', 'elevenlabs', 'heygen', 'falai', 'blotato'
+  api_key text not null,           -- stored as-is; restrict access via service_role key
+  is_active boolean default true,
+  plan text,                       -- optional label e.g. 'Business', 'Creator'
+  added_at timestamptz default now()
+);
+
+alter table provider_settings enable row level security;
+-- Restrict to service_role only (dashboard reads via server-side API route)
+create policy "Service role only on provider_settings"
+  on provider_settings for all
+  using (auth.role() = 'service_role')
+  with check (auth.role() = 'service_role');
+
+-- ============================================================
 -- PIPELINE TRACKING TABLES (used by anilytix pipeline)
 -- ============================================================
 
