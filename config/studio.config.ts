@@ -12,19 +12,19 @@ export const studio = {
     handle: "@Anilytix",
     subscriberCount: "Growing",
     niche: "AI & Technology",
-    nicheDescription: "AI tools, tips, and automation in Hinglish for Indian audience",
+    nicheDescription: "AI tools, automation, and technology for curious minds worldwide",
   },
 
   // --- Brand Voice ---
   voice: {
-    tone: "enthusiastic but grounded, Hinglish mix",
+    tone: "enthusiastic but grounded — clear, direct, and insightful",
     rules: [
       "Direct, action-oriented",
-      "First-person, conversational Hinglish",
+      "First-person, conversational tone",
       "Short paragraphs with line breaks",
-      "Mix Hindi and English naturally — like how educated Indians talk",
       "Tech terms stay in English (AI, prompt, tool, feature, API)",
-      "No AI-sounding phrases like 'game-changer', 'revolutionary', 'let's dive in'",
+      "No filler phrases like 'game-changer', 'revolutionary', 'let's dive in'",
+      "Adapt language to the topic — English, Hinglish, or mixed based on the audience",
     ],
   },
 
