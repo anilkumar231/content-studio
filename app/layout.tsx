@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `Content Studio - ${studio.creator.channelName}`,
-  description: `Content creation dashboard for ${studio.creator.channelName}`,
+  title: `${studio.creator.channelName} Studio`,
+  description: `AI-powered content pipeline for ${studio.creator.channelName} — ${studio.creator.nicheDescription}`,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0f1e",
+  themeColor: "#0d1224",
 };
 
 export default function RootLayout({
