@@ -1,0 +1,62 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <!-- Teal-to-blue gradient matching brand -->
+    <linearGradient id="lg" x1="12" y1="88" x2="92" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#00D4FF"/>
+      <stop offset="55%" stop-color="#00A8CC"/>
+      <stop offset="100%" stop-color="#0055CC"/>
+    </linearGradient>
+    <!-- Arrow gradient: bright cyan -->
+    <linearGradient id="ag" x1="74" y1="70" x2="95" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#00CCEE"/>
+      <stop offset="100%" stop-color="#00EEFF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ── A left leg ── -->
+  <line x1="12" y1="88" x2="50" y2="14"
+        stroke="url(#lg)" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- ── A right leg (truncated — arrow takes over) ── -->
+  <line x1="50" y1="14" x2="74" y2="72"
+        stroke="url(#lg)" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- ── A crossbar ── -->
+  <line x1="27" y1="57" x2="67" y2="57"
+        stroke="url(#lg)" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- ── Circuit traces on left leg ── -->
+  <!-- Row 1 — bottom -->
+  <circle cx="16" cy="81" r="3.2" fill="#00A8CC"/>
+  <line x1="16" y1="81" x2="30" y2="81"
+        stroke="#0A1A2F" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="30" cy="81" r="3" fill="#0A1A2F" stroke="#0099BB" stroke-width="1.5"/>
+
+  <!-- Row 2 -->
+  <circle cx="22" cy="68" r="2.8" fill="#00A8CC"/>
+  <line x1="22" y1="68" x2="35" y2="68"
+        stroke="#0A1A2F" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="35" cy="68" r="2.6" fill="#0A1A2F" stroke="#0088AA" stroke-width="1.5"/>
+
+  <!-- Row 3 -->
+  <circle cx="30" cy="53" r="2.2" fill="#0099BB"/>
+  <line x1="30" y1="53" x2="41" y2="53"
+        stroke="#0A1A2F" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="41" cy="53" r="2" fill="#0A1A2F" stroke="#0077AA" stroke-width="1.2"/>
+
+  <!-- Row 4 — near crossbar -->
+  <circle cx="38" cy="37" r="1.8" fill="#0099BB"/>
+  <line x1="38" y1="37" x2="47" y2="37"
+        stroke="#0A1A2F" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="47" cy="37" r="1.6" fill="#0A1A2F" stroke="#0077AA" stroke-width="1"/>
+
+  <!-- ── Upward trending arrow (the right/future arm) ── -->
+  <!-- Shaft -->
+  <line x1="74" y1="70" x2="93" y2="20"
+        stroke="url(#ag)" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Arrow head — pointing upper-right -->
+  <polyline points="82,24 93,16 98,28"
+            stroke="#00E5FF" stroke-width="6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

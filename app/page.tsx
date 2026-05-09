@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Sparkline } from "@/components/dashboard/sparkline";
 import { ActivityHeatmap } from "@/components/dashboard/activity-heatmap";
+import { LiveAutomationFlow } from "@/components/dashboard/automation-flow";
 import {
   CheckCircle2,
   XCircle,
@@ -331,6 +332,12 @@ export default function OverviewPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* ── Automation Flow ──────────────────────────────────── */}
+      <div className="animate-fade-up delay-100 glass rounded-2xl p-5" style={{ animationFillMode: "both" }}>
+        <SectionLabel>AI Pipeline — Live Status</SectionLabel>
+        <LiveAutomationFlow />
       </div>
 
       {/* ── Stats grid ───────────────────────────────────────── */}
