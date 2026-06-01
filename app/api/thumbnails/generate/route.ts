@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -9,6 +10,30 @@ const HEADSHOT_PATH = join(
   "public",
   studio.carousel.headshot.replace(/^\//, "")
 );
+
+// Image model is configurable. Default to the cheaper Nano Banana
+// (gemini-2.5-flash-image); set GEMINI_IMAGE_MODEL=gemini-3-pro-image-preview
+// for max quality. NOTE: all Gemini image models require BILLING enabled —
+// the free tier allows 0 image requests.
+const IMAGE_MODEL = process.env.GEMINI_IMAGE_MODEL || "gemini-2.5-flash-image";
+
+// Turn a raw Gemini/SDK error into a short, actionable message instead of
+// dumping the full API JSON into the dashboard.
+function friendlyError(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  if (/RESOURCE_EXHAUSTED|"code":\s*429|quota|limit:\s*0/i.test(msg)) {
+    return (
+      "Gemini image generation is out of quota. Image generation is NOT on the " +
+      "free tier (limit: 0). Enable billing for your GEMINI_API_KEY project at " +
+      "https://aistudio.google.com/app/apikey, then retry. You can also set " +
+      "GEMINI_IMAGE_MODEL to a cheaper model (e.g. gemini-2.5-flash-image)."
+    );
+  }
+  if (/API key|API_KEY|PERMISSION_DENIED|invalid/i.test(msg)) {
+    return "Gemini API key invalid or lacks permission — check GEMINI_API_KEY in .env.local.";
+  }
+  return msg.length > 280 ? msg.slice(0, 280) + "…" : msg;
+}
 
 export const maxDuration = 120;
 
@@ -148,14 +173,19 @@ export async function POST(request: Request) {
       });
     }
 
-    const response = await genai.models.generateContent({
-      model: "gemini-3-pro-image-preview",
-      contents: [{ role: "user", parts: contents }],
-      config: {
-        responseModalities: ["TEXT", "IMAGE"],
-        imageConfig: { aspectRatio: "16:9" },
-      },
-    });
+    let response;
+    try {
+      response = await genai.models.generateContent({
+        model: IMAGE_MODEL,
+        contents: [{ role: "user", parts: contents }],
+        config: {
+          responseModalities: ["TEXT", "IMAGE"],
+          imageConfig: { aspectRatio: "16:9" },
+        },
+      });
+    } catch (err) {
+      return { error: `Variation ${index + 1}: ${friendlyError(err)}`, index: index + 1 };
+    }
 
     // Extract image from response
     const parts = response.candidates?.[0]?.content?.parts || [];
@@ -188,7 +218,7 @@ export async function POST(request: Request) {
 
     const thumbnails = results.map((r, i) => {
       if (r.status === "fulfilled") return r.value;
-      return { error: `Variation ${i + 1} failed: ${r.reason}`, index: i + 1 };
+      return { error: `Variation ${i + 1} failed: ${friendlyError(r.reason)}`, index: i + 1 };
     });
 
     return Response.json({ thumbnails });
